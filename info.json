@@ -1,0 +1,11 @@
+{
+	"name": "StopgapNukes",
+	"version": "1.0.7",
+	"title": "Stopgap Nukes Expansion",
+	"author": "Just Some Guy",
+	"contact": "someguy@someguy.com",
+	"homepage": "github.com",
+	"description": "For nuclear weapon proliferation enjoyers that are too impatient to wait for True Nukes to get updated for 2.0",
+	"dependencies": ["base", "? space-age"],
+	"factorio_version": "2.0"
+}

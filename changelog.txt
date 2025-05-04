@@ -1,0 +1,61 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.7
+Date: 05. 04. 2025
+  Changes:
+    - changed the stack size of nuclear bullets from 200 to 100
+    - added a mod setting that allows the user to modify the secondary blast radius damage of the 1kt, 15kt, 500kt and 2mt nukes.
+    - took some of the code from True Nukes that makes the explosion effects and put it into this mod. (it's MIT open source license so its ok) (it barely worked)
+    - marginally improved the explosion effects of the nuclear bullets
+    - tried to improve the explosion effects, didn't actually work very well but the 1kt and above nukes now have MARGINALLY better special effects. perhaps the community will discover ways to help me improve this in future versions.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.6
+Date: 11. 25. 2024
+  Changes:
+    - fixed an incorrect build menu sort order for the 500kt atomic bomb recipe.
+    - updated the recipe string for the 1kt atomic bomb to denote the difference between the heavy water and non-heavy water versions of the recipe.
+    - buffed the damage done at the edges of the 20 ton atomic bomb explosion.
+    - reduced the amount of uranium-235 required for the 1 ton atomic bombs to 30 because the 1 ton atomic bomb explosion (the vanilla one) is a complete joke. Maybe reducing its cost will at least make it useful in certain situations.
+    - added a mod setting so that if you don't agree with the aforementioned balance decision, you can fix it yourself.
+    - removed the atomic bomb damage mod setting. It's now set to its nominal value of 500000 all the time no matter what.
+    - Made it so that the changelog actually shows up in the game's mod menu
+---------------------------------------------------------------------------------------------------
+Version: 1.0.5
+Date: 11. 24. 2024
+  Changes:
+    - fixed a bug where the fusion bomb doesnt explode. Now it does basically the same thing as the thermonuclear bomb. Which is still too big of an explosion to be practical in factorio and will likely stay this way until new methods of explosion optimization are discovered by modders.
+    - added a 500kt atomic bomb since the thermonuclear bomb probably won't work on most people's computers. It's extremely laggy but if you have a high end overlocked cpu with really good single-core performance and maybe some overclocked ddr5 ram, it might actually be possible for the game to recover from this if you wait long enough. Just use the 15kt one bro.
+    - added a setting so that users can chose whether the 500kt atomic bomb is unlocked with the thermonuclear tech or the advanced nuclear weapon tech.
+    - fixed a bug where the 1kt nuke and above doesn't apply fireball blast damage correctly (probably) due lua int precision.
+    - added a recipe that allows you to craft the 1kt atomic bomb with heavy water as a crafting ingredient in exchange for using less uranium 235.
+    - attempted to remove functionality from the 15kt and above explosions in an effort to gain some performance: blinding flash effect + damage ONLY with no other effects. The 15kt atomic bomb is now actually usable.
+    - rebalanced some of the recipes. Some of the higher end ones were too fast, some of the lower end recipes were too slow.
+    - Fixed a bug where you couldn't use production modules when making neutron reflectors.
+    - Removed some of the useless console output that prints to the screen when certain explosions are run.
+    - Rebalanced the 15kt, 500kt and 2mt explosions to more closely match what's on nukemap
+---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 11. 18. 2024
+  Changes:
+    - fixed a secondary explosion effect generation bug that was making the 20 ton atomic bomb explosions lag way too much for no reason
+    - rebalanced some of the nuke explosions to make them more viable in combat situations
+    - things at the center of nuclear explosions take on a higher and more realistic amount of damage. All atomic bombs larger than the vanilla atomic bomb (1 ton) can now damage the demolisher worms.
+    - rebalanced heavy water recipes
+    - added user-configurable settings for some stuff
+---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 11. 17. 2024
+  Changes:
+    - made much needed improvements the medium sized explosions. the 1kt atomic bomb probably wont crash your game anymore
+    - changed temperatures of hydrogen sulfide to what was on wikipedia
+---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 11. 17. 2024
+  Changes:
+    - found a way to make the atomic bomb bullets actually do damage to targets.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 11. 17. 2024
+  Changes:
+    - Changed stack size of the 1 ton atomic bomb from 10 to 20
+    - fixed the way sound variables work so enable it to work on stable and 2.0.19 beta
+---------------------------------------------------------------------------------------------------
