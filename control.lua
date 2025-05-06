@@ -1,8 +1,34 @@
 --get the relevant user settings for the stuff this lua file
+local mushroomFunctions = require("MushroomCloudInBuilt.control")
 local atomic_pollution_mult = settings.startup["stopgapnukes_atomicpollution_behaviour"].value
 local thermobaric_pollution_mult = settings.startup["stopgapnukes_thermobaricpollution_behaviour"].value
 local vt_effects = settings.startup["stopgapnukes_20t_effects_behaviour"].value
 local kt_effects = settings.startup["stopgapnukes_1kt_effects_behaviour"].value
+
+--i tried copy-pasting this block of code from True Nukes to circumvent "attempt to index gloval 'global' a nil value" but it didn't make a differernce
+local createBlastSoundsAndFlash = mushroomFunctions[1]
+script.on_init(function()
+  storage.nuclearTests = {}       -- a map of force-index to maps from atomic-test-pack to count...
+  storage.thermalBlasts = {}				-- a simple array, with elements: {surface_index, position, force, thermal_max_r, initialDamage, fireball_r, x, y}, each as a key of the map
+  storage.blastWaves = {}					-- a simple array, with elements:
+  --{r = currrent explosion radius, pos = centre position, pow = initial blast multiplier (usually initial r*r)
+  -- , max = maximum radius, s = surface index, fire = leave fires (true for thermobarics, false for nukes), damage_init = starting damage, speed = how far to jump every round, fire_rad = the radius to which the fire wave is solid
+  -- , blast_min_damage = amount of extra damage to add all the time, itt = the number of itterations done, doItts = whether to time slice the blast, ittframe = keeps track of frame count for time slicing
+  -- , force = force of the cause of the explosion - allows allocating kills correctly, cause = allows allocating kills to the originator})
+
+  storage.nukeBuildings = {} 				-- array of the LuaEntities for any nukeBuildings
+  storage.optimisedNukes = {} 				-- has keys:
+  --position, surface_index, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, check_craters
+  --used for doing chunk-by-chunk loading of detonation results
+
+  storage.cratersFast = {} 				-- map: cratersFast[surface index][xposition][yposition] = the highest water height in that area (x, y in units of 10)
+  storage.cratersFastData = {}				-- map: cratersFastData[surface index] =
+  -- {synch =  1-4 making deep water travel slower, xCount = number of x chunks on this surface, xCountSoFar = number of x chunks done so far this round, xDone = all x values done so far this round}
+  storage.cratersFastItterationCount = 0	-- the counter of ticks for circling x chunks - counts up to 53
+
+
+  storage.cratersSlow = {} 				-- array of {t = time waiting - 20s units, x = xin units of 32, y = y in units of 32, surface = the surface index}
+end)
 
 --a psuedorandom seed-based random number generator that SHOULD work without causing desyncs in multiplayer
 local A1 = 710425941047
@@ -80,11 +106,15 @@ local function big_nuke_explosion(surface_index, source, position, explosion_r, 
     modd = ctr % 32
   end
   --game.print("[big_nuke_explosion]spawned "..expctr.." nuke explosions")
+  
+  createBlastSoundsAndFlash(position, game.surfaces[surface_index], explosion_r, blast_max_r, 1800, 15000, 160, 1);
 end
 --nuke-explosion
 
 local function really_big_nuke_explosion(surface_index, source, position, explosion_r, blast_max_r, fire_r, load_r, visable_r, exp1spacing, exp2spacing)
 --game.surfaces[surface_index].pollute(position, 20000*atomic_pollution_mult)
+
+if kt_effects then
   local force;
   local cause = source;
   if(not (source==nil)) then
@@ -128,6 +158,8 @@ local function really_big_nuke_explosion(surface_index, source, position, explos
     modd = psuedorandom(position, ctr) % exp2spacing
   end
   game.print("[really_big_nuke_explosion]spawned "..expctr.." nuke explosions")
+end
+  createBlastSoundsAndFlash(position, game.surfaces[surface_index], explosion_r, blast_max_r, 1800, 15000, 160, 1);
 end
 
 local function find_event_position(event)
@@ -198,18 +230,25 @@ game.surfaces[event.surface_index].pollute(position, 5000*atomic_pollution_mult)
 	if vt_effects then
 		big_nuke_explosion(event.surface_index, source, position, 45, 120, 100, 120, 100)
 	end
+elseif (event.effect_id=="120t atomic bomb explosion") then
+	game.surfaces[event.surface_index].pollute(position, 10000*atomic_pollution_mult)
+	createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 300, 700, 1000, 20000, 200, 1)
 elseif (event.effect_id=="kt atomic bomb explosion") then
 --game.print("running really_big_nuke_explosion")
 game.surfaces[event.surface_index].pollute(position, 20000*atomic_pollution_mult)
-	if kt_effects then
-		really_big_nuke_explosion(event.surface_index, source, position, 280, 350, 330, 600, 600, 1024, 64)
-	end
+	--if kt_effects then
+	--improved so that it's less laggy, there is no longer a reason to completely disable this
+	really_big_nuke_explosion(event.surface_index, source, position, 280, 350, 330, 600, 600, 1024, 64)
+	--end
 elseif (event.effect_id=="multikt atomic bomb explosion") then
 --game.print("running really_big_nuke_explosion")
 game.surfaces[event.surface_index].pollute(position, 20000*atomic_pollution_mult)
+createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 1500, 3000, 20000, 100000, 1500, 8)
 --really_big_nuke_explosion(event.surface_index, source, position, 1500, 1650, 1650, 6000, 6000, 16384, 4096)
 elseif (event.effect_id=="stupid bullet nuke explosion") then
 bullet_nuke_explosion(event.surface_index, source, position, 15, 15)
+createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 60, 100, 200, 700, 10, 0.06)
+--createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], explosion_r, blast_max_r, 1800, 15000, 160, 1);
 end
 end)
 

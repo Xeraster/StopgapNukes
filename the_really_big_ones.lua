@@ -39,6 +39,10 @@ if secondary_blast_damage > 0 then
 	secondary_blast_damage_15kt = secondary_blast_damage
 	secondary_blast_damage_500kt = secondary_blast_damage
 	secondary_blast_damage_2mt = secondary_blast_damage
+elseif secondary_blast_damage == -1 then
+	secondary_blast_damage_15kt = 0
+	secondary_blast_damage_500kt = 0
+	secondary_blast_damage_2mt = 0
 end
 
 --these need to be in the same file as the projectile that uses them or it wont work

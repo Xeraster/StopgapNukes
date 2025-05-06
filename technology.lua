@@ -34,11 +34,27 @@ data:extend
       },
       {
         type = "unlock-recipe",
+        recipe = "stopgapnukes_medium_nuclear_cannon_shell_recipe"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "stopgapnukes_medium_nuclear_cannon_shell_recipe_noheavywater"
+      },
+      {
+        type = "unlock-recipe",
         recipe = "stopgapnukes_big_atomic_bomb_recipe"
       },
       {
         type = "unlock-recipe",
         recipe = "stopgapnukes_big_atomic_bomb_recipe-neutron-reflectors"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "stopgapnukes_medium_atomic_bomb_recipe"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "stopgapnukes_medium_atomic_bomb_recipe-neutron-reflectors"
       },
       {
         type = "unlock-recipe",

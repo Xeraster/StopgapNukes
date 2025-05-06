@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.8
+Date: 05. 05. 2025
+  Changes:
+    - found a way of getting a larger percentage of the True Nukes explosion special effects code to work. Nucler explosion fireball effects don't yet fade out correctly.
+    - explosions larger than 1kt now have special effects besides just a white flash
+    - made it so that setting the stopgapnukes_secondary_blast_damage_amt mod option to -1 disables secondary blast damage
+    - added a 120 ton rocket because sometimes a 20 ton nuke is too small and a 1kt nuke is too big.
+    - also added a 120 ton cannon shell.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.7
 Date: 05. 04. 2025
   Changes:

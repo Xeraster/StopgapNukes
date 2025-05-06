@@ -1,14 +1,16 @@
 local item_sounds = require("__base__.prototypes.item_sounds")
+
+--maybe putting this before all the other stuff in the load order will make the effects work beter. update: it didn't even make a difference
+require("MushroomCloudInBuilt.explosions")
+require("MushroomCloudInBuilt.radiation_noise")
+require("MushroomCloudInBuilt.ground_zero")
+require("MushroomCloudInBuilt.explosion_sizes")
+
 require("fluid")
 require("thermobarics")
 require("bigger_nukes")
 require("the_really_big_ones")
 require("technology")
-
-require("MushroomCloudInBuilt.explosions")
-require("MushroomCloudInBuilt.radiation_noise")
-require("MushroomCloudInBuilt.ground_zero")
-require("MushroomCloudInBuilt.explosion_sizes")
 
 --for some reason its harder to catch things on fire in 2.0, idk why
 local fireutil = require("__base__.prototypes.fire-util")
