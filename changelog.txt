@@ -7,6 +7,9 @@ Date: 05. 05. 2025
     - made it so that setting the stopgapnukes_secondary_blast_damage_amt mod option to -1 disables secondary blast damage
     - added a 120 ton rocket because sometimes a 20 ton nuke is too small and a 1kt nuke is too big.
     - also added a 120 ton cannon shell.
+    - added thermonuclear fuel. Gives you a better chance at getting away from really large explosions.
+    - added settings to let the user modify the thermonuclear fuel properties in case they disagree with my balance decisions
+    - added icons to some of the mod settings labels
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.7
 Date: 05. 04. 2025

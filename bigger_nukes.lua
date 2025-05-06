@@ -1347,10 +1347,11 @@ data:extend({
 		energy_required = 30,
 		ingredients = 
 		{
+			{type="item", name="neutron-reflector", amount = 40},
 			{type="fluid", name="heavy-water", amount = (100 * heavy_water_mult)},
 			{type="item", name="explosives", amount = 20},
 			{type="item", name="rocket-fuel", amount = 45},
-			{type="item", name="uranium-235", amount = 250},
+			{type="item", name="uranium-235", amount = 200},
 			{type="item", name="processing-unit", amount = 30},
 			{type="item", name="rocket", amount = 1},
 		},
@@ -1373,7 +1374,7 @@ data:extend({
 		ingredients = 
 		{
 			--{"stone", 10},
-			{type="item", name="neutron-reflector", amount = 22},
+			{type="item", name="neutron-reflector", amount = 20},
 			{type="item", name="explosives", amount = 10},
 			{type="item", name="rocket-fuel", amount = 40},
 			{type="item", name="uranium-235", amount = 250},

@@ -128,5 +128,29 @@ data:extend({
         order = "a16",
 		default_value = 0,
     },
+    {
+    	--thermonuclear fuel acceleration
+        type = "double-setting",
+        name = "stopgapnukes_thermonuclear_fuel_acceleration",
+        setting_type = "startup",
+        order = "b5",
+		default_value = 3.75,
+    },
+    {
+    	--thermonuclear fuel acceleration
+        type = "double-setting",
+        name = "stopgapnukes_thermonuclear_fuel_topspeed",
+        setting_type = "startup",
+        order = "b6",
+		default_value = 1.5,
+    },
+    {
+    	--thermonuclear fuel acceleration
+        type = "double-setting",
+        name = "stopgapnukes_thermonuclear_fuel_power",
+        setting_type = "startup",
+        order = "b6",
+		default_value = 20.69,
+    }
 
 })

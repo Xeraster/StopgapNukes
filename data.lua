@@ -7,6 +7,7 @@ require("MushroomCloudInBuilt.ground_zero")
 require("MushroomCloudInBuilt.explosion_sizes")
 
 require("fluid")
+require("thermonuclear_fuel_prototype")
 require("thermobarics")
 require("bigger_nukes")
 require("the_really_big_ones")

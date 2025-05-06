@@ -155,6 +155,10 @@ data:extend
       {
         type = "unlock-recipe",
         recipe = "stopgapnukes_nuclearbullet_recipe"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "thermonuclear-fuel"
       }
     },
     prerequisites = {"large-atomic-bomb"},
