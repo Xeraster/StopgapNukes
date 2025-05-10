@@ -20,9 +20,15 @@ local neutronplates_tungsten = settings.startup["stopgapnukes_neutronplate_tungs
 
 local stopgapnukes_boosted_fission_tech_behaviour = settings.startup["stopgapnukes_boosted_fission_tech_behaviour"].value
 
+local vanilla_atomicbomb_radar = settings.startup["stopgapnukes_vanilla_atomicbomb_radar"].value
+if vanilla_atomicbomb_radar then
+table.insert(data.raw.projectile["atomic-rocket"].action.action_delivery.target_effects, { type = "script", effect_id = "vanilla_atomic_bomb_doradar"} )
+end
+
 data.raw.projectile["nuclear_cannon_projectile"].action = data.raw.projectile["atomic-rocket"].action
 --data.raw.projectile["nuclear_bullet_ammo"].action = data.raw.projectile["atomic-rocket"].action
 data.raw["artillery-projectile"]["nuclear_artillery_projectile"].action = data.raw.projectile["atomic-rocket"].action
+--table.insert(data.raw["artillery-projectile"]["nuclear_artillery_projectile"].action.action_delivery.target_effects, { type = "script", effect_id = "vanilla_atomic_bomb_doradar"} )
 --data.raw["ammo"]["nuclear_bullet_ammo"].ammo_type.action = data.raw.projectile["atomic-rocket"].action
 
 --table.insert(data.raw["ammo"]["nuclear_bullet_ammo"].ammo_type.action, ammoexplosion)

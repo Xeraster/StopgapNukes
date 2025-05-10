@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.9
+Date: 05. 08. 2025
+  Changes:
+    - fixed a bug where some of the really big explosions don't reveal a big enough map area where they explode.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.8
 Date: 05. 05. 2025
   Changes:

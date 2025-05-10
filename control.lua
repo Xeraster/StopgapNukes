@@ -75,9 +75,10 @@ local function big_nuke_explosion(surface_index, source, position, explosion_r, 
   game.surfaces[surface_index].request_to_generate_chunks(position, load_r/32)
   game.surfaces[surface_index].force_generate_chunk_requests()
 
-  for _,f in pairs(game.forces) do
-    f.chart(game.surfaces[surface_index], {{position.x-visable_r,position.y-visable_r},{position.x+visable_r,position.y+visable_r}})
-  end
+  --this gets handled in a different function now
+  --for _,f in pairs(game.forces) do
+  --  f.chart(game.surfaces[surface_index], {{position.x-visable_r,position.y-visable_r},{position.x+visable_r,position.y+visable_r}})
+  --end
   ctr = 0
   expctr = 0
   --modd = ctr % 4--only spawn one of these explosions sometimes
@@ -125,9 +126,10 @@ if kt_effects then
   game.surfaces[surface_index].request_to_generate_chunks(position, load_r/32)
   game.surfaces[surface_index].force_generate_chunk_requests()
 
-  for _,f in pairs(game.forces) do
-    f.chart(game.surfaces[surface_index], {{position.x-visable_r,position.y-visable_r},{position.x+visable_r,position.y+visable_r}})
-  end
+  --this gets handled in a different function now
+  --for _,f in pairs(game.forces) do
+  --  f.chart(game.surfaces[surface_index], {{position.x-visable_r,position.y-visable_r},{position.x+visable_r,position.y+visable_r}})
+  --end
   ctr = 0
   expctr = 0
   --modd = ctr % exp1spacing--only spawn one of these explosions sometimes
@@ -211,6 +213,12 @@ local function bullet_nuke_explosion(surface_index, source, position, radius)
   end
 end
 
+local function reveal_map_area(surface_index, position, visable_r)
+  for _,f in pairs(game.forces) do
+    f.chart(game.surfaces[surface_index], {{position.x-visable_r,position.y-visable_r},{position.x+visable_r,position.y+visable_r}})
+  end
+end
+
 
 script.on_event(defines.events.on_script_trigger_effect, function(event)
 local mult = 25
@@ -230,25 +238,31 @@ game.surfaces[event.surface_index].pollute(position, 5000*atomic_pollution_mult)
 	if vt_effects then
 		big_nuke_explosion(event.surface_index, source, position, 45, 120, 100, 120, 100)
 	end
+	reveal_map_area(event.surface_index, position, 100)
 elseif (event.effect_id=="120t atomic bomb explosion") then
 	game.surfaces[event.surface_index].pollute(position, 10000*atomic_pollution_mult)
 	createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 300, 700, 1000, 20000, 200, 1)
+	reveal_map_area(event.surface_index, position, 200)
 elseif (event.effect_id=="kt atomic bomb explosion") then
 --game.print("running really_big_nuke_explosion")
 game.surfaces[event.surface_index].pollute(position, 20000*atomic_pollution_mult)
 	--if kt_effects then
 	--improved so that it's less laggy, there is no longer a reason to completely disable this
 	really_big_nuke_explosion(event.surface_index, source, position, 280, 350, 330, 600, 600, 1024, 64)
+	reveal_map_area(event.surface_index, position, 250)
 	--end
 elseif (event.effect_id=="multikt atomic bomb explosion") then
 --game.print("running really_big_nuke_explosion")
 game.surfaces[event.surface_index].pollute(position, 20000*atomic_pollution_mult)
 createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 1500, 3000, 20000, 100000, 1500, 8)
+reveal_map_area(event.surface_index, position, 350)
 --really_big_nuke_explosion(event.surface_index, source, position, 1500, 1650, 1650, 6000, 6000, 16384, 4096)
 elseif (event.effect_id=="stupid bullet nuke explosion") then
 bullet_nuke_explosion(event.surface_index, source, position, 15, 15)
 createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 60, 100, 200, 700, 10, 0.06)
 --createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], explosion_r, blast_max_r, 1800, 15000, 160, 1);
+elseif (event.effect_id=="vanilla_atomic_bomb_doradar") then
+reveal_map_area(event.surface_index, position, 60)
 end
 end)
 

@@ -149,8 +149,16 @@ data:extend({
         type = "double-setting",
         name = "stopgapnukes_thermonuclear_fuel_power",
         setting_type = "startup",
-        order = "b6",
+        order = "b7",
 		default_value = 20.69,
+    },
+    {
+    	--thermonuclear fuel acceleration
+        type = "bool-setting",
+        name = "stopgapnukes_vanilla_atomicbomb_radar",
+        setting_type = "startup",
+        order = "b8",
+		default_value = true,
     }
 
 })
