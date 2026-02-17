@@ -249,13 +249,13 @@ game.surfaces[event.surface_index].pollute(position, 20000*atomic_pollution_mult
 	--if kt_effects then
 	--improved so that it's less laggy, there is no longer a reason to completely disable this
 	really_big_nuke_explosion(event.surface_index, source, position, 280, 350, 330, 600, 600, 1024, 64)
-	reveal_map_area(event.surface_index, position, 250)
+	reveal_map_area(event.surface_index, position, 500)
 	--end
 elseif (event.effect_id=="multikt atomic bomb explosion") then
 --game.print("running really_big_nuke_explosion")
 game.surfaces[event.surface_index].pollute(position, 20000*atomic_pollution_mult)
 createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 1500, 3000, 20000, 100000, 1500, 8)
-reveal_map_area(event.surface_index, position, 350)
+reveal_map_area(event.surface_index, position, 1000)
 --really_big_nuke_explosion(event.surface_index, source, position, 1500, 1650, 1650, 6000, 6000, 16384, 4096)
 elseif (event.effect_id=="stupid bullet nuke explosion") then
 bullet_nuke_explosion(event.surface_index, source, position, 15, 15)

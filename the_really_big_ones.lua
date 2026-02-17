@@ -100,6 +100,12 @@ local multikt_nuke_explosion_action = {
             type = "invoke-tile-trigger",
             repeat_count = 1
           },
+          {
+              type = "create-smoke",
+              show_in_tooltip = true,
+              entity_name = "massive-fallout-cloud",
+              initial_height = 0
+            },
           --{
           --  type = "destroy-decoratives",
             --from_render_layer = "decorative",
@@ -463,6 +469,12 @@ local boosted_fission_nuke_explosion_action = {
             decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
             radius = 3000
           },
+          {
+              type = "create-smoke",
+              show_in_tooltip = true,
+              entity_name = "massive-fallout-cloud",
+              initial_height = 0
+            },
       --{
       --  type = "nested-result",
       --  action =
@@ -741,7 +753,13 @@ local thermonuclear_explosion_action = {
             invoke_decorative_trigger = true,
             decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
             radius = 20000
-          }
+          },
+          {
+              type = "create-smoke",
+              show_in_tooltip = true,
+              entity_name = "massive-fallout-cloud",
+              initial_height = 0
+            },
         }
       }
     }

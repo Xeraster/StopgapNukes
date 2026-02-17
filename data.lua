@@ -6,6 +6,7 @@ require("MushroomCloudInBuilt.radiation_noise")
 require("MushroomCloudInBuilt.ground_zero")
 require("MushroomCloudInBuilt.explosion_sizes")
 
+require("nuclear_fallout")
 require("fluid")
 require("thermonuclear_fuel_prototype")
 require("thermobarics")

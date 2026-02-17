@@ -78,6 +78,7 @@ elseif secondary_blast_damage == -1 then
 	secondary_blast_damage_1kt = 0;
 end
 
+--20 ton nuclear explosion
 --these need to be in the same file as the projectile that uses them or it wont work
 local big_nuke_explosion_action = {
       type = "direct",
@@ -129,6 +130,12 @@ local big_nuke_explosion_action = {
             entity_name = "medium-scorchmark-tintable",
             check_buildability = true
           },
+          {
+              type = "create-smoke",
+              show_in_tooltip = true,
+              entity_name = "small-fallout-cloud",
+              initial_height = 0
+            },
           --{
           --  type = "invoke-tile-trigger",
           --  repeat_count = 1
@@ -464,6 +471,12 @@ local medium_nuke_explosion_action = {
             entity_name = "medium-scorchmark-tintable",
             check_buildability = true
           },
+          {
+              type = "create-smoke",
+              show_in_tooltip = true,
+              entity_name = "large-fallout-cloud",
+              initial_height = 0
+            },
           --{
           --  type = "invoke-tile-trigger",
           --  repeat_count = 1
@@ -817,6 +830,12 @@ local kt_nuke_explosion_action = {
             decoratives_with_trigger_only = false, -- if true, destroys only decoratives that have trigger_effect set
             radius = 330
           },
+          {
+              type = "create-smoke",
+              show_in_tooltip = true,
+              entity_name = "massive-fallout-cloud",
+              initial_height = 0
+            },
           {
             type = "nested-result",
             action =

@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.10
+Date: 02. 14. 2026
+  Changes:
+    - increased the map reveal distance of the 1kt atomic bomb to be slightly larger than its total area of effect.
+    - added nuclear fallout - a feature True Nukes has that this mod didn't. Now, when the bugs swarm ground-zero they all die instead of being able to gather for a massive and OP counter-attack.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.9
 Date: 05. 08. 2025
   Changes:
