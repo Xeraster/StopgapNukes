@@ -251,7 +251,7 @@ data:extend({
             {
               {
                 type = "damage",
-                damage = {amount = 1000, type = "fire"}
+                damage = {amount = 1500, type = "fire"}
               }
             }
           }
@@ -476,7 +476,7 @@ data:extend({
             {
               {
                 type = "damage",
-                damage = {amount = 750, type = "fire"}
+                damage = {amount = 1000, type = "fire"}
               }
             }
           }

@@ -1,3 +1,4 @@
+--the structure and layout of all the lua code in this entire mod is utterly terrible. If you came here looking to fix or change something, welcome to hell and sorry.
 local item_sounds = require("__base__.prototypes.item_sounds")
 
 --maybe putting this before all the other stuff in the load order will make the effects work beter. update: it didn't even make a difference
@@ -12,6 +13,7 @@ require("thermonuclear_fuel_prototype")
 require("thermobarics")
 require("bigger_nukes")
 require("the_really_big_ones")
+require("poison_bombs")
 require("technology")
 
 --for some reason its harder to catch things on fire in 2.0, idk why
@@ -22,7 +24,7 @@ data:extend({
     type = "fire",
     name = "thermobaric-explosion-fire",
     flags = {"placeable-off-grid", "not-on-map"},
-    damage_per_tick = {amount = 13 / 60, type = "fire"},
+    damage_per_tick = {amount = 23 / 60, type = "fire"},
     maximum_damage_multiplier = 6,
     damage_multiplier_increase_per_added_fuel = 1,
     damage_multiplier_decrease_per_tick = 0.005,

@@ -2,11 +2,13 @@
 local mushroomFunctions = require("MushroomCloudInBuilt.control")
 local atomic_pollution_mult = settings.startup["stopgapnukes_atomicpollution_behaviour"].value
 local thermobaric_pollution_mult = settings.startup["stopgapnukes_thermobaricpollution_behaviour"].value
+local dirtybomb_pollution_mult = settings.startup["stopgapnukes_dirtybombpollution_behaviour"].value
 local vt_effects = settings.startup["stopgapnukes_20t_effects_behaviour"].value
 local kt_effects = settings.startup["stopgapnukes_1kt_effects_behaviour"].value
 
 --i tried copy-pasting this block of code from True Nukes to circumvent "attempt to index gloval 'global' a nil value" but it didn't make a differernce
 local createBlastSoundsAndFlash = mushroomFunctions[1]
+local everyTick = mushroomFunctions[2]
 script.on_init(function()
   storage.nuclearTests = {}       -- a map of force-index to maps from atomic-test-pack to count...
   storage.thermalBlasts = {}				-- a simple array, with elements: {surface_index, position, force, thermal_max_r, initialDamage, fireball_r, x, y}, each as a key of the map
@@ -62,6 +64,34 @@ game.surfaces[surface_index].pollute(position, 2000*thermobaric_pollution_mult)
   --nah, fixing that fire shockwave code to work in 2.0 would take ages
 end
 
+local function dirty_bomb_pollution(surface_index, source, position, amount)
+  game.surfaces[surface_index].pollute(position, amount*dirtybomb_pollution_mult)
+end
+
+--a special function for the acid bomb
+local function acid_weapon_hit(surface_index, source, position, explosion_r, blast_max_r, fire_r, load_r, visable_r)
+--game.surfaces[surface_index].pollute(position, 100*thermobaric_pollution_mult)
+  local force;
+  local cause = source;
+  if(not (source==nil)) then
+    force = source.force
+  else
+    force = "enemy"
+  end
+  game.surfaces[surface_index].request_to_generate_chunks(position, load_r/32)
+  game.surfaces[surface_index].force_generate_chunk_requests()
+
+  for _,f in pairs(game.forces) do
+    f.chart(game.surfaces[surface_index], {{position.x-visable_r,position.y-visable_r},{position.x+visable_r,position.y+visable_r}})
+  end
+  fireRadius = explosion_r * 2;
+  for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=fireRadius}) do
+    game.surfaces[surface_index].create_entity{name="acid-splash-fire-worm-behemoth",position=v.position}
+  end
+  --nothing goes here
+  game.print("acid weapon hit")
+end
+
 --advanced atomic bomb. 20t usually
 local function big_nuke_explosion(surface_index, source, position, explosion_r, blast_max_r, fire_r, load_r, visable_r)
 --game.surfaces[surface_index].pollute(position, 5000*atomic_pollution_mult)
@@ -108,7 +138,7 @@ local function big_nuke_explosion(surface_index, source, position, explosion_r, 
   end
   --game.print("[big_nuke_explosion]spawned "..expctr.." nuke explosions")
   
-  createBlastSoundsAndFlash(position, game.surfaces[surface_index], explosion_r, blast_max_r, 1800, 15000, 160, 1);
+  createBlastSoundsAndFlash(position, game.surfaces[surface_index], 250, 600, 1800, 15000, 160, 1);
 end
 --nuke-explosion
 
@@ -161,7 +191,6 @@ if kt_effects then
   end
   game.print("[really_big_nuke_explosion]spawned "..expctr.." nuke explosions")
 end
-  createBlastSoundsAndFlash(position, game.surfaces[surface_index], explosion_r, blast_max_r, 1800, 15000, 160, 1);
 end
 
 local function find_event_position(event)
@@ -232,6 +261,10 @@ if(event.effect_id=="Thermobaric Weapon hit large") then
 thermobaric_weapon_hit(event.surface_index, source, position, 15, 120, 100, 120, 100);
 elseif (event.effect_id=="Thermobaric Weapon hit medium") then
 thermobaric_weapon_hit(event.surface_index, source, position, 9, 90, 80, 90, 80);
+elseif (event.effect_id=="acid_weapon_explosion") then
+acid_weapon_hit(event.surface_index, source, position, 15, 120, 100, 120, 100);
+elseif (event.effect_id=="dirty_bomb_explosion") then
+dirty_bomb_pollution(event.surface_index, source, position, 10000);
 elseif (event.effect_id=="Big atomic bomb explosion") then
 local valmult=5000*atomic_pollution_mult
 game.surfaces[event.surface_index].pollute(position, 5000*atomic_pollution_mult)
@@ -250,6 +283,7 @@ game.surfaces[event.surface_index].pollute(position, 20000*atomic_pollution_mult
 	--improved so that it's less laggy, there is no longer a reason to completely disable this
 	really_big_nuke_explosion(event.surface_index, source, position, 280, 350, 330, 600, 600, 1024, 64)
 	reveal_map_area(event.surface_index, position, 500)
+  createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 600, 1200, 8000, 60000, 600, 4);
 	--end
 elseif (event.effect_id=="multikt atomic bomb explosion") then
 --game.print("running really_big_nuke_explosion")
@@ -270,3 +304,8 @@ remote.add_interface("StopgapNukes Scripts", {
   thermobaricWeaponHit = thermobaric_weapon_hit,
   bigNukeExplosion = big_nuke_explosion
 });
+
+--this shit fucking sucks
+script.on_event(defines.events.on_tick, function(event)
+  everyTick(event)
+end)

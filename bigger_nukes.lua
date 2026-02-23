@@ -133,7 +133,7 @@ local big_nuke_explosion_action = {
           {
               type = "create-smoke",
               show_in_tooltip = true,
-              entity_name = "small-fallout-cloud",
+              entity_name = "medium-fallout-cloud",
               initial_height = 0
             },
           --{

@@ -6,6 +6,7 @@ local trivial_smoke = smoke_animations.trivial_smoke
 local fallout_color = { 0.239, 0.239, 0.239, 0.690 }
 local fallout_duration = 180
 
+--a fallout cloud that turned out too small. maybe it can be used as optional 1 ton nuke fallout or something
 data:extend({
     {
     name = "small-fallout-cloud",
@@ -165,9 +166,10 @@ data:extend({
   }
 })
 
+--a medium fallout cloud, generally for 20 ton nukes and stuff of that size
 data:extend({
     {
-    name = "large-fallout-cloud",
+    name = "medium-fallout-cloud",
     type = "smoke-with-trigger",
     flags = {"not-on-map"},
     hidden = true,
@@ -240,7 +242,7 @@ data:extend({
             {
               type = "create-smoke",
               show_in_tooltip = false,
-              entity_name = "large-fallout-cloud-visual-dummy",
+              entity_name = "medium-fallout-cloud-visual-dummy",
               initial_height = 0
             }
           }
@@ -282,11 +284,172 @@ data:extend({
 data:extend({
     {
     type = "smoke-with-trigger",
-    name = "large-fallout-cloud-visual-dummy",
+    name = "medium-fallout-cloud-visual-dummy",
     flags = {"not-on-map"},
     hidden = true,
     show_when_smoke_off = true,
     particle_count = 100,
+    particle_spread = { 3.6 * 3.05, 3.6 * 0.6 * 3.05 },
+    particle_distance_scale_factor = 1.5,
+    particle_scale_factor = { 1, 0.707 },
+    particle_duration_variation = 60 * 3,
+    wave_speed = { 0.5 / 80, 0.5 / 60 },
+    wave_distance = { 1, 0.5 },
+    spread_duration_variation = 300 - 20,
+
+    render_layer = "object",
+
+    affected_by_wind = false,
+    cyclic = true,
+    duration = fallout_duration * 20 + 4 * fallout_duration,
+    fade_away_duration = 3 * 60,
+    spread_duration = (300 - 20) / 2 ,
+    color = fallout_color, -- #035b6452
+
+    animation =
+    {
+      width = 152,
+      height = 120,
+      line_length = 5,
+      frame_count = 60,
+      shift = {-0.53125, -0.4375},
+      priority = "high",
+      animation_speed = 0.25,
+      filename = "__base__/graphics/entity/smoke/smoke.png",
+      flags = { "smoke" }
+    },
+    working_sound =
+    {
+      sound = {filename = "__StopgapNukes__/MushroomCloudInBuilt/sound/radiation_ticking.ogg", volume = 1.5, audible_distance_modifier = 3.0},
+      max_sounds_per_prototype = 1,
+      match_volume_to_activity = true
+    }
+  }
+})
+
+--a large fallout cloud for the 120 ton nukes and stuff of similar size
+data:extend({
+    {
+    name = "large-fallout-cloud",
+    type = "smoke-with-trigger",
+    flags = {"not-on-map"},
+    hidden = true,
+    show_when_smoke_off = true,
+    particle_count = 100,
+    particle_spread = { 3.6 * 1.05, 3.6 * 0.6 * 1.05 },
+    particle_distance_scale_factor = 1.5,
+    particle_scale_factor = { 1, 0.707 },
+    wave_speed = { 1/80, 1/60 },
+    wave_distance = { 0.3, 0.2 },
+    spread_duration_variation = 20,
+    particle_duration_variation = 60 * 3,
+    render_layer = "object",
+
+    affected_by_wind = false,
+    cyclic = true,
+    duration = fallout_duration * 20,
+    fade_away_duration = 2 * 60,
+    spread_duration = 20,
+    color = fallout_color, -- #3ddffdb0,
+
+    animation =
+    {
+      width = 152,
+      height = 120,
+      line_length = 5,
+      frame_count = 60,
+      shift = {-0.53125, -0.4375},
+      priority = "high",
+      animation_speed = 0.25,
+      filename = "__base__/graphics/entity/smoke/smoke.png",
+      flags = { "smoke" }
+    },
+
+    created_effect =
+    {
+      {
+        type = "cluster",
+        cluster_count = 250,
+        distance = 4,
+        distance_deviation = 80,
+        action_delivery =
+        {
+          type = "instant",
+          target_effects =
+          {
+            {
+              type = "create-smoke",
+              show_in_tooltip = false,
+              entity_name = "massive-fallout-cloud-visual-dummy",
+              initial_height = 0
+            },
+            {
+              type = "play-sound",
+              sound = sounds.poison_capsule_explosion
+            }
+          }
+        }
+      },
+      {
+        type = "cluster",
+        cluster_count = 1000,
+        distance = 60,
+        distance_deviation = 60,
+        action_delivery =
+        {
+          type = "instant",
+          target_effects =
+          {
+            {
+              type = "create-smoke",
+              show_in_tooltip = false,
+              entity_name = "large-fallout-cloud-visual-dummy",
+              initial_height = 0
+            }
+          }
+        }
+      }
+    },
+    action =
+    {
+      type = "direct",
+      action_delivery =
+      {
+        type = "instant",
+        target_effects =
+        {
+          type = "nested-result",
+          action =
+          {
+            type = "area",
+            radius = 120,
+            entity_flags = {"breaths-air", "placeable-enemy"},
+            action_delivery =
+            {
+              type = "instant",
+              target_effects =
+              {
+                type = "damage",
+                damage = { amount = 200, type = "poison"}
+              }
+            }
+          }
+        }
+      }
+    },
+    action_cooldown = 30
+  }
+})
+
+
+data:extend({
+    {
+    type = "smoke-with-trigger",
+    name = "large-fallout-cloud-visual-dummy",
+    flags = {"not-on-map"},
+    hidden = true,
+    show_when_smoke_off = true,
+    particle_count = 150,
     particle_spread = { 3.6 * 3.05, 3.6 * 0.6 * 3.05 },
     particle_distance_scale_factor = 1.5,
     particle_scale_factor = { 1, 0.707 },
@@ -367,9 +530,9 @@ data:extend({
     {
       {
         type = "cluster",
-        cluster_count = 250,
+        cluster_count = 450,
         distance = 4,
-        distance_deviation = 80,
+        distance_deviation = 100,
         action_delivery =
         {
           type = "instant",
@@ -390,8 +553,27 @@ data:extend({
       },
       {
         type = "cluster",
-        cluster_count = 1000,
+        cluster_count = 1500,
         distance = 60,
+        distance_deviation = 120,
+        action_delivery =
+        {
+          type = "instant",
+          target_effects =
+          {
+            {
+              type = "create-smoke",
+              show_in_tooltip = false,
+              entity_name = "massive-fallout-cloud-visual-dummy",
+              initial_height = 0
+            }
+          }
+        }
+      },
+      {
+        type = "cluster",
+        cluster_count = 200,
+        distance = 120,
         distance_deviation = 60,
         action_delivery =
         {
@@ -420,7 +602,7 @@ data:extend({
           action =
           {
             type = "area",
-            radius = 100,
+            radius = 200,
             entity_flags = {"breaths-air", "placeable-enemy"},
             action_delivery =
             {
@@ -447,7 +629,7 @@ data:extend({
     flags = {"not-on-map"},
     hidden = true,
     show_when_smoke_off = true,
-    particle_count = 150,
+    particle_count = 250,
     particle_spread = { 3.6 * 3.05, 3.6 * 0.6 * 3.05 },
     particle_distance_scale_factor = 1.5,
     particle_scale_factor = { 1, 0.707 },

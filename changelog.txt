@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.11
+Date: 02. 22. 2026
+  Changes:
+    - Plutonium energy is now officially supported. There are user-configurable settings for it to manage how the recipies are dealt with.
+    - Made it so that the vanilla atomic bomb can be loaded onto rockets in space (if using space age)
+    - Significantly improved quality of explosion effects by making my own modified version of a mushroom cloud function to specifically make it compatile with this mod.
+    - Increased poison damage radius of the 2nd largest fallout cloud because too many bugs were conistently getting around it without taking damage
+    - Upgraded all nuclear fallout clouds by 1 size tier and added a new size. was small, large and massive. Now its small, medium, large and massive.
+    - Slightly buffed the damage done by thermobaric explosions
+    - added poison bomb, acid bomb and dirty bomb. New tech research icons are hand-drawn mspaint-quality garbage. Deal with it.
+    - reduced research costs because the grind seems to be a little much. In rampant, ERM, deathworld or even just high-evolution its like once you finally grind enough to get something unlocked its too little too late.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.10
 Date: 02. 14. 2026
   Changes:

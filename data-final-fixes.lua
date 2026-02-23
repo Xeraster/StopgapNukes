@@ -1,3 +1,4 @@
+local plutonium_settings = require("plutonium-energy-recipies")
 --load in user settings first
 
 local vanilla_235_override = settings.startup["stopgapnukes_vanila_recipe_amount_behaviour"].value
@@ -39,7 +40,13 @@ data.raw["artillery-projectile"]["nuclear_artillery_projectile"].action = data.r
 data.raw["artillery-projectile"]["thermobaric_artillery_projectile"].action = data.raw.projectile["thermobaric-rocket-projectile"].action
 data.raw["artillery-projectile"]["thermobaric_artillery_projectile"].final_action = data.raw.projectile["thermobaric-rocket-projectile"].final_action
 
---make the vanilla atomic bomb have the range and I want it to have
+data.raw["artillery-projectile"]["acid-artillery-projectile"].action = data.raw.projectile["acid-bomb"].action
+data.raw["artillery-projectile"]["acid-artillery-projectile"].final_action = data.raw.projectile["acid-bomb"].final_action
+
+data.raw["artillery-projectile"]["dirty-bomb-artillery-projectile"].action = data.raw.projectile["dirty-bomb"].action
+data.raw["artillery-projectile"]["dirty-bomb-artillery-projectile"].final_action = data.raw.projectile["dirty-bomb"].final_action
+
+--make the vanilla atomic bomb have the range I want it to have
 data.raw["ammo"]["atomic-bomb"].ammo_type.range_modifier = 3.5
 data.raw["ammo"]["atomic-bomb"].stack_size = 20
 
@@ -191,4 +198,23 @@ if mods["space-age"] then
 	{type="item", name="quantum-processor", amount = 100},
 	{type="item", name="lithium-plate", amount = 40}
       }
+
+      --be sure to change the vanilla atomic bomb rocket cargo capacity size to a sensible number
+      data.raw["ammo"]["atomic-bomb"].weight = data.raw["ammo"]["big_atomic_bomb"].weight
+      --data.raw.item["atomic-bomb"].weight = 50*kg
+end
+
+--plutonium energy modifications
+if mods["PlutoniumEnergy"] then
+	--3 cases: both recipes enabled, plutonium recipies only, uranium recipies only
+	if settings.startup["stopgapnukes-PlutoniumEnergy-setting"].value == "keep both recipes" then
+            plutonium_settings.do_plutonium_recipies(vanilla_235_override)
+		plutonium_settings.insert_plutonium_techs()
+	elseif settings.startup["stopgapnukes-PlutoniumEnergy-setting"].value == "plutonium only" then
+            plutonium_settings.do_plutonium_recipies(vanilla_235_override)
+            plutonium_settings.insert_plutonium_techs()
+            plutonium_settings.remove_uranium_techs()
+	else
+            --do nothing because the mod is already in the "uranium recipies only" state by default
+	end
 end

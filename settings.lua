@@ -137,7 +137,6 @@ data:extend({
 		default_value = 3.75,
     },
     {
-    	--thermonuclear fuel acceleration
         type = "double-setting",
         name = "stopgapnukes_thermonuclear_fuel_topspeed",
         setting_type = "startup",
@@ -145,7 +144,6 @@ data:extend({
 		default_value = 1.5,
     },
     {
-    	--thermonuclear fuel acceleration
         type = "double-setting",
         name = "stopgapnukes_thermonuclear_fuel_power",
         setting_type = "startup",
@@ -153,12 +151,51 @@ data:extend({
 		default_value = 20.69,
     },
     {
-    	--thermonuclear fuel acceleration
         type = "bool-setting",
         name = "stopgapnukes_vanilla_atomicbomb_radar",
         setting_type = "startup",
         order = "b8",
 		default_value = true,
+    },
+    {
+        type = "double-setting",
+        name = "stopgapnukes_nuclearfallout_length",
+        setting_type = "startup",
+        order = "b9",
+        minimum_value = 0.25,
+        maximum_value = 100,
+		default_value = 1.0,
+    },
+    {
+    	--how much pollution does the dirty bomb do. its intended to produce enough pollution to be a real problem but play the game however you want, idgaf
+        type = "double-setting",
+        name = "stopgapnukes_dirtybombpollution_behaviour",
+        setting_type = "startup",
+        order = "ba",
+        minimum_value = 0.0,
+        maximum_value = 10000,
+		default_value = 1.0,
     }
-
 })
+
+if mods["PlutoniumEnergy"] then
+data:extend({
+    {
+	    type = "string-setting",
+	    name = "stopgapnukes-PlutoniumEnergy-setting",
+	    order = "aa",
+	    setting_type = "startup",
+	    default_value = "keep both recipes",
+	    allowed_values =  {"keep both recipes", "plutonium only", "uranium only"}
+    },
+    {
+	    type = "double-setting",
+	    name = "stopgapnukes-PlutoniumEnergy-setting-quantity",
+	    order = "ab",
+	    setting_type = "startup",
+	    default_value = 0.25,
+        minimum_value = 0.01,
+        maximum_value = 100,
+    }
+})
+end

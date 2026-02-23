@@ -77,7 +77,7 @@ data:extend
     prerequisites = {"atomic-bomb"},
     unit =
     {
-      count = 10000,
+      count = 5000,
       ingredients =
       {
         {"automation-science-pack", 1},
@@ -164,7 +164,7 @@ data:extend
     prerequisites = {"large-atomic-bomb"},
     unit =
     {
-      count = 15000,
+      count = 7500,
       ingredients =
       {
         {"automation-science-pack", 1},
@@ -203,7 +203,7 @@ data:extend
     prerequisites = {"large-atomic-bomb"},
     unit =
     {
-      count = 5000,
+      count = 2000,
       ingredients =
       {
         {"automation-science-pack", 1},
@@ -243,7 +243,7 @@ data:extend
     prerequisites = { "thermonuclear-fusion" },
     unit =
     {
-      count = 20000,
+      count = 10000,
       ingredients =
       {
         {"automation-science-pack", 1},
@@ -259,6 +259,86 @@ data:extend
         --{"cryogenic-science-pack", 1}	--the commented out values get reapplied if running space age
       },
       time = 45
+    }
+  },
+  })
+
+  data:extend({
+    {
+    type = "technology",
+    name = "chemical-warfare-stopgapnukes",--added stopgapnukes to end because chemical-warfare is a common term that might get used and create mod conflicts
+    icon = "__StopgapNukes__/graphics/icons/chemical-wmds-tech.png",
+    icon_size = 256,
+    effects =
+    {
+      {
+        type = "unlock-recipe",
+        recipe = "acid-bomb"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "poison-bomb"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "poison-cannon-shell",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "acid-artillery-shell",
+      }
+    },
+    prerequisites = {"military-4", "rocketry","flamethrower"},
+    unit =
+    {
+      count = 1500,
+      ingredients =
+      {
+        {"automation-science-pack", 1},
+        {"logistic-science-pack", 1},
+        {"chemical-science-pack", 1},
+        {"military-science-pack", 1},
+        {"production-science-pack", 1},
+        {"utility-science-pack", 1},
+        --{"metallurgic-science-pack", 1},
+      },
+      time = 30
+    }
+  },
+  })
+
+  data:extend({
+    {
+    type = "technology",
+    name = "dirty-bomb",
+    icon = "__StopgapNukes__/graphics/icons/dirty-bomb-tech.png",
+    icon_size = 256,
+    effects =
+    {
+      {
+        type = "unlock-recipe",
+        recipe = "dirty-bomb"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "dirty-bomb-artillery-shell"
+      }
+    },
+    prerequisites = {"atomic-bomb", "chemical-warfare-stopgapnukes"},
+    unit =
+    {
+      count = 3000,
+      ingredients =
+      {
+        {"automation-science-pack", 1},
+        {"logistic-science-pack", 1},
+        {"chemical-science-pack", 1},
+        {"military-science-pack", 1},
+        {"production-science-pack", 1},
+        {"utility-science-pack", 1},
+        --{"metallurgic-science-pack", 1},
+      },
+      time = 30
     }
   },
   })
